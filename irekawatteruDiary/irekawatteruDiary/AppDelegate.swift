@@ -13,20 +13,70 @@ import NCMB
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+    let userdefault = UserDefaults.standard
     let applicationkey = "e417a1144fbee84bb63f1b1180899722fc59a31245a9d24f0792e1d897a44de0"
     let clientkey = "7efccf9456ebd4937c1d9d300b527546d3fb63be706da0b10ab65fe7fb8ccb1c"
 
     func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
         //NCMB初期設定
         NCMB.setApplicationKey(applicationkey, clientKey: clientkey)
-        UserDefaults.standard.set(0,forKey:"diaryNum")
-        UserDefaults.standard.set([String](),forKey:"diaryText")
+        //初回起動のみ
+        userdefault.register(defaults: ["firstLaunch" : true])
+        
+        
+        if userdefault.bool(forKey: "firstLaunch") {
+            
+            userdefault.set(false,forKey:"irekawatteruFlg")
+            userdefault.set("",forKey:"irekawatteruId")
+            
+            //ローカルの日記初期化
+            userdefault.set(0,forKey:"diaryNum")
+            userdefault.set([String](),forKey:"diaryText")
+            userdefault.set([Date](),forKey:"diaryDate")
+            userdefault.set([Bool](),forKey:"comments")
+            userdefault.set([0.1411,0.3960,0.5647059083], forKey: "backGround")//RGB#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+            userdefault.set("myDiary", forKey: "diaryName")
+            
+            //入れ替わり先日記
+            userdefault.set(0,forKey:"irekawatteruNum")
+            userdefault.set([String](),forKey:"irekawatteruText")
+            userdefault.set([Date](),forKey:"irekawatteruDate")
+            userdefault.set([0.1411,0.3960,0.5647059083], forKey: "irekawtteruBackGround")//RGB#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+            userdefault.set("myDiary", forKey: "irekawatteruDiaryName")
+            
+            // データストアに日記を追加
+            let generalData = NCMBObject(className: "general")
+            generalData?.objectId = "pQ4Dsf7DVU6f1ZtV"
+            generalData?.fetchInBackground({ (error) in
+                if error != nil {
+                    // 取得に失敗した場合の処理
+                    print("something error")
+                }else{
+                    let member = NCMBObject(className: "member")
+                    let num = generalData?.object(forKey: "memberNum") as! Int
+                    member?.setObject(num, forKey : "number")
+                    member?.setObject(0, forKey: "diaryNum")
+                    member?.setObject("MyDiary", forKey: "diaryName")
+                    member?.setObject([0.1411,0.3960,0.5647059083], forKey: "backGround")//RGB#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+                    member?.save(nil) //同期
+                    let id = member?.objectId
+                    self.userdefault.set(id!, forKey: "myDiaryId")
+                    print("id",id ?? "not found ID")
+                    
+                    generalData?.incrementKey("memberNum")//日記数を増やす
+                    generalData?.save(nil)//同期
+                    print("LaunchSucceed")
+                    
+                }
+            })
+            // off the flag to know if it is first time to launch
+            userdefault.set(false, forKey: "firstLaunch")
+        }
         return true
     }
 
@@ -46,7 +96,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
-
