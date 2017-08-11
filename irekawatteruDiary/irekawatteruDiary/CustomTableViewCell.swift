@@ -35,6 +35,7 @@ class CustomTableViewCell: UITableViewCell {
         var dataComps = cal.dateComponents([.year, .month, .day, .hour, .minute], from: date)
         //dateString = "\(dataComps.month!)月\(dataComps.day!)日 \(dataComps.hour!):\(dataComps.minute!)"
         dateString = "\(dataComps.day!)"
+        print(dataComps)
         diaryText.numberOfLines = 0
         diaryText.lineBreakMode = NSLineBreakMode.byWordWrapping
         let c:[CGFloat]
@@ -51,7 +52,7 @@ class CustomTableViewCell: UITableViewCell {
         diaryText.text = text
         dateLabel.text = dateString
         
-        let weekdayIndex: Int = cal.component(.weekday, from: date)
+        let weekdayIndex: Int = cal.component(.weekday, from: date)-1
         weekDay.text = Calendar.current.shortStandaloneWeekdaySymbols[weekdayIndex]
     }
 }
