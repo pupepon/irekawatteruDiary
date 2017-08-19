@@ -175,7 +175,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "diaryCell") as! CustomTableViewCell
         
         cell.setCell(date: diaryDate[diaryNum - indexPath.section-1], text: diaryText[diaryNum - indexPath.section-1])
-        cell.layer.cornerRadius = 10.0
+        cell.layer.cornerRadius = 3
         
         if commentFlg[diaryNum-indexPath.section-1]{
             cell.layer.borderColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1).cgColor
@@ -183,8 +183,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }else{
             cell.layer.borderWidth = 0
         }
-        
-        
         return cell
     }
     

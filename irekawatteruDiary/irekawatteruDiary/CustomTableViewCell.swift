@@ -41,7 +41,7 @@ class CustomTableViewCell: UITableViewCell {
         let c:[CGFloat]
         let flg = userdefault.value(forKey: "irekawatteruFlg") as! Bool
         if(flg){
-            c = userdefault.value(forKey: "irekawtteruBackGround") as! [CGFloat]
+            c = userdefault.value(forKey: "irekawatteruBackGround") as! [CGFloat]
         }else{
             c = userdefault.value(forKey: "backGround") as! [CGFloat]
         }
