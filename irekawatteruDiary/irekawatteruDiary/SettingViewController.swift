@@ -22,6 +22,8 @@ class SettingViewController: UIViewController,UICollectionViewDataSource, UIColl
 
         super.viewDidLoad()
         print("LunchedSettingView!!!")
+        
+        diaryNameTextfield.text = userdefault.value(forKey: "diaryName") as? String
         let c = userdefault.value(forKey: "backGround") as! [CGFloat]
         let selectedColor: UIColor = UIColor(red: c[0], green: c[1], blue: c[2], alpha: 1)
         

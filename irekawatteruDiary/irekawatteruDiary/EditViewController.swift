@@ -103,7 +103,7 @@ class EditViewController: UIViewController {
             //Add Diary
             case -1:
                 
-                saveLocalDiary(tag: tagNum, date: date, comment: false)
+                saveLocalDiary(tag: tagNum, date: date)
                 
                 let obj = NCMBObject(className: "diary")
                 
@@ -161,7 +161,7 @@ class EditViewController: UIViewController {
                 }
                 print("ID",obj.objectId)
                 
-                saveLocalDiary(tag: tagNum, date: date, comment: false)
+                saveLocalDiary(tag: tagNum, date: date)
                 obj.setObject(editText.text, forKey: "text")
                 obj.saveInBackground({ (error) in
                     if error != nil {
@@ -179,12 +179,16 @@ class EditViewController: UIViewController {
     }
     
     
-    func saveLocalDiary(tag: Int,date:Date, comment:Bool){
+    func saveLocalDiary(tag: Int,date:Date){
         if(tag == -1){
             //ローカルに日記を保存
             diaryText.append(editText.text)
             diaryDate.append(date)
-            comments.append(comment)
+            if flg {
+                comments.append(true)
+            }else{
+                comments.append(false)
+            }
         }else{
             //更新
             diaryText[tagNum] = editText.text
