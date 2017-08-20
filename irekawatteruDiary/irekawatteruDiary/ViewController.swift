@@ -133,9 +133,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         }
         if(irekawatteruFlg){
-            changeButton.titleLabel?.text = "戻す"
+            changeButton.setTitle("戻る", for: UIControlState.normal)
         }else{
-            changeButton.titleLabel?.text = "入れ替わる"
+            changeButton.setTitle("入れ替わる", for: UIControlState.normal)
         }
         table.reloadData()
     }
@@ -159,9 +159,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         irekawatteruFlg = !irekawatteruFlg
         let obj = getDiaryData("pQ4Dsf7DVU6f1ZtV", className: "general", keyName: "objectId")[0]
         let n = obj.object(forKey: "memberNum") as! Int
-        let rand = arc4random_uniform(UInt32(n))
-        print("anotherdiary",rand)
-        getAnotherDiary(flg: irekawatteruFlg,memberNum: Int(rand))
+        var rand = -1
+        let me = userdefault.value(forKey: "myDiaryNumber") as! Int
+        repeat {
+            rand = Int(arc4random_uniform(UInt32(n)))
+            print(rand)
+        } while rand ==  me
+        getAnotherDiary(flg: irekawatteruFlg,memberNum: rand)
         userdefault.set(irekawatteruFlg, forKey: "irekawatteruFlg")
         viewWillAppear(true)
     }

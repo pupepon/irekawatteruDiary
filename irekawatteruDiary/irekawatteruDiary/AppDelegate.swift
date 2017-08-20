@@ -69,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     print("id",id ?? "not found ID")
                     
                     generalData?.incrementKey("memberNum")//日記数を増やす
+                    self.userdefault.set(num, forKey: "myDiaryNumber")
                     generalData?.save(nil)//同期
                     print("LaunchSucceed")
                     

@@ -40,11 +40,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7be-LP-z7d">
-                                                    <rect key="frame" x="43" y="4" width="300" height="21"/>
+                                                    <rect key="frame" x="43" y="4" width="300" height="20.333333333333332"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="300" id="gsp-uZ-v7c"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -55,13 +55,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZz-6v-jnU">
-                                                    <rect key="frame" x="8" y="40" width="20" height="32"/>
+                                                    <rect key="frame" x="8" y="40" width="20" height="37"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="write a diary here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvo-qF-cLB">
-                                                    <rect key="frame" x="43" y="25" width="331" height="65"/>
+                                                    <rect key="frame" x="43" y="19.333333333333336" width="331" height="65.666666666666657"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -71,19 +71,20 @@
                                                 <constraint firstItem="7be-LP-z7d" firstAttribute="leading" secondItem="kyM-pG-bjm" secondAttribute="trailing" constant="15" id="9dk-XA-BOW"/>
                                                 <constraint firstItem="Qvo-qF-cLB" firstAttribute="leading" secondItem="qZz-6v-jnU" secondAttribute="trailing" constant="15" id="HcE-Ku-HgX"/>
                                                 <constraint firstAttribute="trailing" secondItem="Qvo-qF-cLB" secondAttribute="trailing" constant="8" id="RyW-YR-Cl1"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="qZz-6v-jnU" secondAttribute="bottom" constant="10" id="Xan-pR-748"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="qZz-6v-jnU" secondAttribute="bottom" constant="5" id="Xan-pR-748"/>
                                                 <constraint firstItem="qZz-6v-jnU" firstAttribute="centerX" secondItem="kyM-pG-bjm" secondAttribute="centerX" id="Yaq-Jd-1Va"/>
                                                 <constraint firstItem="7be-LP-z7d" firstAttribute="top" secondItem="u9B-Wa-yyW" secondAttribute="top" constant="4" id="ZSL-mO-VU9"/>
                                                 <constraint firstItem="kyM-pG-bjm" firstAttribute="top" secondItem="u9B-Wa-yyW" secondAttribute="top" constant="4" id="jpo-hN-50V"/>
                                                 <constraint firstItem="qZz-6v-jnU" firstAttribute="top" secondItem="kyM-pG-bjm" secondAttribute="bottomMargin" constant="8" id="m2p-jx-Ule"/>
-                                                <constraint firstItem="Qvo-qF-cLB" firstAttribute="top" secondItem="7be-LP-z7d" secondAttribute="bottom" id="rFy-ka-nhs"/>
+                                                <constraint firstItem="Qvo-qF-cLB" firstAttribute="top" secondItem="7be-LP-z7d" secondAttribute="bottom" constant="-5" id="rFy-ka-nhs"/>
                                                 <constraint firstItem="kyM-pG-bjm" firstAttribute="leading" secondItem="u9B-Wa-yyW" secondAttribute="leading" constant="8" id="sBB-Zn-W6L"/>
-                                                <constraint firstAttribute="bottom" secondItem="Qvo-qF-cLB" secondAttribute="bottom" priority="999" id="uvx-Xf-VaS"/>
+                                                <constraint firstAttribute="bottom" secondItem="Qvo-qF-cLB" secondAttribute="bottom" priority="999" constant="5" id="uvx-Xf-VaS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="kyM-pG-bjm" id="UYh-jX-fhQ"/>
                                             <outlet property="diaryText" destination="Qvo-qF-cLB" id="FKd-sM-7jL"/>
+                                            <outlet property="timeStamp" destination="7be-LP-z7d" id="CWU-3c-9am"/>
                                             <outlet property="weekDay" destination="qZz-6v-jnU" id="kOl-t4-DSF"/>
                                         </connections>
                                     </tableViewCell>
@@ -102,9 +103,10 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Prg-ih-lHO"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="GkX-br-DmN"/>
                                     <barButtonItem style="plain" id="uom-6d-Pxk">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="feV-95-94n">
-                                            <rect key="frame" x="259" y="-5.6666666666666679" width="135" height="55"/>
+                                            <rect key="frame" x="296" y="-5.6666666666666679" width="98" height="55"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <state key="normal" title="入れ替わる">
