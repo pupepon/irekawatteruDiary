@@ -39,44 +39,48 @@
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7be-LP-z7d">
-                                                    <rect key="frame" x="43" y="4" width="300" height="20.333333333333332"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="10" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyM-pG-bjm">
+                                                    <rect key="frame" x="8" y="4" width="42" height="36"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="300" id="gsp-uZ-v7c"/>
+                                                        <constraint firstAttribute="width" constant="42" id="xac-SD-oWx"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="qZz-6v-jnU">
+                                                    <rect key="frame" x="19" y="40" width="20" height="45"/>
+                                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7be-LP-z7d">
+                                                    <rect key="frame" x="58" y="4" width="150" height="20.333333333333332"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="150" id="gsp-uZ-v7c"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="5" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyM-pG-bjm">
-                                                    <rect key="frame" x="8" y="4" width="20" height="36"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZz-6v-jnU">
-                                                    <rect key="frame" x="8" y="40" width="20" height="37"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="write a diary here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvo-qF-cLB">
-                                                    <rect key="frame" x="43" y="19.333333333333336" width="331" height="65.666666666666657"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="write a diary here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="Qvo-qF-cLB">
+                                                    <rect key="frame" x="58" y="24" width="316" height="61"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="7be-LP-z7d" firstAttribute="leading" secondItem="kyM-pG-bjm" secondAttribute="trailing" constant="15" id="9dk-XA-BOW"/>
-                                                <constraint firstItem="Qvo-qF-cLB" firstAttribute="leading" secondItem="qZz-6v-jnU" secondAttribute="trailing" constant="15" id="HcE-Ku-HgX"/>
+                                                <constraint firstItem="Qvo-qF-cLB" firstAttribute="leading" secondItem="7be-LP-z7d" secondAttribute="leading" id="8p4-9O-0T7"/>
+                                                <constraint firstItem="7be-LP-z7d" firstAttribute="leading" secondItem="kyM-pG-bjm" secondAttribute="trailing" priority="999" constant="8" id="9dk-XA-BOW"/>
                                                 <constraint firstAttribute="trailing" secondItem="Qvo-qF-cLB" secondAttribute="trailing" constant="8" id="RyW-YR-Cl1"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="qZz-6v-jnU" secondAttribute="bottom" constant="5" id="Xan-pR-748"/>
+                                                <constraint firstAttribute="baseline" secondItem="qZz-6v-jnU" secondAttribute="bottom" priority="900" constant="5" id="Xan-pR-748"/>
                                                 <constraint firstItem="qZz-6v-jnU" firstAttribute="centerX" secondItem="kyM-pG-bjm" secondAttribute="centerX" id="Yaq-Jd-1Va"/>
                                                 <constraint firstItem="7be-LP-z7d" firstAttribute="top" secondItem="u9B-Wa-yyW" secondAttribute="top" constant="4" id="ZSL-mO-VU9"/>
                                                 <constraint firstItem="kyM-pG-bjm" firstAttribute="top" secondItem="u9B-Wa-yyW" secondAttribute="top" constant="4" id="jpo-hN-50V"/>
-                                                <constraint firstItem="qZz-6v-jnU" firstAttribute="top" secondItem="kyM-pG-bjm" secondAttribute="bottomMargin" constant="8" id="m2p-jx-Ule"/>
-                                                <constraint firstItem="Qvo-qF-cLB" firstAttribute="top" secondItem="7be-LP-z7d" secondAttribute="bottom" constant="-5" id="rFy-ka-nhs"/>
+                                                <constraint firstItem="qZz-6v-jnU" firstAttribute="top" secondItem="kyM-pG-bjm" secondAttribute="baseline" constant="8" id="m2p-jx-Ule"/>
+                                                <constraint firstItem="Qvo-qF-cLB" firstAttribute="top" secondItem="7be-LP-z7d" secondAttribute="bottom" id="rFy-ka-nhs"/>
                                                 <constraint firstItem="kyM-pG-bjm" firstAttribute="leading" secondItem="u9B-Wa-yyW" secondAttribute="leading" constant="8" id="sBB-Zn-W6L"/>
                                                 <constraint firstAttribute="bottom" secondItem="Qvo-qF-cLB" secondAttribute="bottom" priority="999" constant="5" id="uvx-Xf-VaS"/>
                                             </constraints>

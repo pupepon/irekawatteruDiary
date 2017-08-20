@@ -43,8 +43,10 @@ class SettingViewController: UIViewController,UICollectionViewDataSource, UIColl
         }
         
         //背景色の保存
-        saveObject(className: "member", id: id!, key: "backGround", value: colorRGB)
-        userdefault.set(colorRGB, forKey: "backGround")
+        if(colorRGB != []){
+            saveObject(className: "member", id: id!, key: "backGround", value: colorRGB)
+            userdefault.set(colorRGB, forKey: "backGround")
+        }
     }
     
     //collectionView
