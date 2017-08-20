@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             userdefault.set(false,forKey:"irekawatteruFlg")
             userdefault.set("",forKey:"irekawatteruId")
+            userdefault.set([String:Int](),forKey:"favorites")
             
             //ローカルの日記初期化
             userdefault.set(0,forKey:"diaryNum")

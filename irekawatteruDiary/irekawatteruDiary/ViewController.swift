@@ -19,6 +19,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var diaryId:[String] = []
     var commentFlg:[Bool] = [false]
     var irekawatteruFlg:Bool = false
+    var myButton: UIButton!
+    var anotherDiaryNum = -1
 
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var navigationBar: UINavigationItem!
@@ -27,7 +29,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         print("LunchedMainView!!!")
-        navigationItem.leftBarButtonItem = editButtonItem
         navigationBar.leftBarButtonItem?.tintColor = UIColor.white
         table.estimatedRowHeight = 100
         table.rowHeight = UITableViewAutomaticDimension
@@ -42,6 +43,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //userDefaultから値持ってくる
         irekawatteruFlg = userdefault.value(forKey: "irekawatteruFlg") as! Bool
         if(!irekawatteruFlg){
+            navigationItem.leftBarButtonItem = editButtonItem
             if userdefault.value(forKey: "diaryNum") != nil{
                 diaryNum = userdefault.value(forKey: "diaryNum") as! Int
                 print("diaryNum",diaryNum)
@@ -87,6 +89,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
         }else{
+            //左上のボタン
+            let favoriteBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(ViewController.onClickFavoriteBarButton(sender:)))
+
+            navigationItem.leftBarButtonItem = favoriteBarButton
             if userdefault.value(forKey: "irekawatteruNum") != nil{
                 diaryNum = userdefault.value(forKey: "irekawatteruNum") as! Int
                 print("diaryNum",diaryNum)
@@ -130,7 +136,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print("diaryName is nil")
                 navigationBar.title = "MyDiary"
             }
-
         }
         if(irekawatteruFlg){
             changeButton.setTitle("戻る", for: UIControlState.normal)
@@ -156,6 +161,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //入れ替わる
     @IBAction func irekawatteru(_ sender: Any) {
+        
         irekawatteruFlg = !irekawatteruFlg
         let obj = getDiaryData("pQ4Dsf7DVU6f1ZtV", className: "general", keyName: "objectId")[0]
         let n = obj.object(forKey: "memberNum") as! Int
@@ -165,6 +171,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             rand = Int(arc4random_uniform(UInt32(n)))
             print(rand)
         } while rand ==  me
+        anotherDiaryNum = rand
         getAnotherDiary(flg: irekawatteruFlg,memberNum: rand)
         userdefault.set(irekawatteruFlg, forKey: "irekawatteruFlg")
         viewWillAppear(true)
@@ -369,7 +376,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 results = try diaryQuery!.findObjects() as [AnyObject]
             } catch  let error1 as NSError  {
                 print("\(error1)")
-                
             }
             
             if results.count > 0 {
@@ -424,12 +430,40 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    internal func onClickFavoriteBarButton(sender: UIButton){
+        // アラートを作成
+        let alert = UIAlertController(
+            title: "お気に入りに追加しますか？",
+            message: "",
+            preferredStyle: .alert)
+        
+        // アラートにボタンをつける
+        alert.addAction(UIAlertAction(title: "はい", style: .default){
+            action in
+            var favoritesDictionaly = [String:Int]()
+            if self.userdefault.value(forKey: "favorites") != nil{
+                favoritesDictionaly = self.userdefault.value(forKey: "favorites") as! [String : Int]
+                favoritesDictionaly[self.navigationBar.title!] = self.anotherDiaryNum
+            }else{
+                favoritesDictionaly[self.navigationBar.title!] = self.anotherDiaryNum
+            }
+            print("addfavorite",favoritesDictionaly)
+            self.userdefault.set(favoritesDictionaly, forKey: "favorites")
+        })
+        alert.addAction(UIAlertAction(title: "いいえ", style: .default))
+        // アラート表示
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     @IBAction func backToDiaryPage(segue: UIStoryboardSegue){
-        
+        irekawatteruFlg = true
+        getAnotherDiary(flg: irekawatteruFlg,memberNum: anotherDiaryNum)
+        userdefault.set(irekawatteruFlg, forKey: "irekawatteruFlg")
+        viewWillAppear(true)
     }
 }

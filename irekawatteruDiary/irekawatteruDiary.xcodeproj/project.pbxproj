@@ -15,6 +15,7 @@
 		9D6E61D01EE7BF29006D88FB /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E61CF1EE7BF29006D88FB /* SettingViewController.swift */; };
 		9DCD57FA1ED005CA009E78C0 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD57F91ED005CA009E78C0 /* CustomTableViewCell.swift */; };
 		9DDAA0BA1EB1A87A003D5E40 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDAA0B91EB1A87A003D5E40 /* EditViewController.swift */; };
+		9DEDEDBE1F49C0480030C16C /* favoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEDEDBD1F49C0480030C16C /* favoritesViewController.swift */; };
 		BF6E11C74DCA4215FDB3213B /* Pods_irekawatteruDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABF1339AFF3CE6EA9905756 /* Pods_irekawatteruDiary.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		9D6E61CF1EE7BF29006D88FB /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		9DCD57F91ED005CA009E78C0 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		9DDAA0B91EB1A87A003D5E40 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		9DEDEDBD1F49C0480030C16C /* favoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = favoritesViewController.swift; sourceTree = "<group>"; };
 		EABF1339AFF3CE6EA9905756 /* Pods_irekawatteruDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_irekawatteruDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -72,6 +74,7 @@
 				9DDAA0B91EB1A87A003D5E40 /* EditViewController.swift */,
 				9D6E61CF1EE7BF29006D88FB /* SettingViewController.swift */,
 				9DCD57F91ED005CA009E78C0 /* CustomTableViewCell.swift */,
+				9DEDEDBD1F49C0480030C16C /* favoritesViewController.swift */,
 				9D2F49E51EAF3693009451ED /* Main.storyboard */,
 				9D2F49E81EAF3693009451ED /* Assets.xcassets */,
 				9D2F49EA1EAF3693009451ED /* LaunchScreen.storyboard */,
@@ -221,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DEDEDBE1F49C0480030C16C /* favoritesViewController.swift in Sources */,
 				9D6E61D01EE7BF29006D88FB /* SettingViewController.swift in Sources */,
 				9D2F49E41EAF3693009451ED /* ViewController.swift in Sources */,
 				9D2F49E21EAF3693009451ED /* AppDelegate.swift in Sources */,
