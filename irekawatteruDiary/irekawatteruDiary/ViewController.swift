@@ -460,7 +460,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func backToDiaryPage(segue: UIStoryboardSegue){
+    @IBAction func onlyBack(segue: UIStoryboardSegue){
+        
+    }
+    
+    @IBAction func backAndChange(segue: UIStoryboardSegue){
         irekawatteruFlg = true
         getAnotherDiary(flg: irekawatteruFlg,memberNum: anotherDiaryNum)
         userdefault.set(irekawatteruFlg, forKey: "irekawatteruFlg")

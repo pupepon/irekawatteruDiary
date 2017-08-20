@@ -39,7 +39,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="10" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyM-pG-bjm">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="10" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyM-pG-bjm">
                                                     <rect key="frame" x="8" y="4" width="42" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="42" id="xac-SD-oWx"/>
@@ -242,7 +242,7 @@
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="saveSatting:" destination="D9E-F1-2r6" eventType="touchUpInside" id="2WM-40-qHd"/>
-                                    <segue destination="0oq-jm-3Me" kind="unwind" unwindAction="backToDiaryPageWithSegue:" id="ghI-pt-BwI"/>
+                                    <segue destination="0oq-jm-3Me" kind="unwind" unwindAction="onlyBackWithSegue:" id="ghI-pt-BwI"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -295,7 +295,7 @@
                                 <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="saveDiary:" destination="DO9-NL-8xw" eventType="touchUpInside" id="bLm-LE-bNv"/>
-                                    <segue destination="aWd-et-aiL" kind="unwind" unwindAction="backToDiaryPageWithSegue:" id="eQa-Ak-hAb"/>
+                                    <segue destination="aWd-et-aiL" kind="unwind" unwindAction="onlyBackWithSegue:" id="eQa-Ak-hAb"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -359,8 +359,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <segue destination="ycK-e7-mYS" kind="unwind" unwindAction="backToDiaryPageWithSegue:" id="c7C-LY-Unt"/>
-                        <segue destination="ycK-e7-mYS" kind="unwind" identifier="back" unwindAction="backToDiaryPageWithSegue:" id="ksT-rk-fDI"/>
+                        <segue destination="ycK-e7-mYS" kind="unwind" unwindAction="onlyBackWithSegue:" id="c7C-LY-Unt"/>
+                        <segue destination="ycK-e7-mYS" kind="unwind" identifier="back" unwindAction="backAndChangeWithSegue:" id="ksT-rk-fDI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GEu-uQ-NzG" userLabel="First Responder" sceneMemberID="firstResponder"/>
