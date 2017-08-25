@@ -56,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             generalData?.fetchInBackground({ (error) in
                 if error != nil {
                     // 取得に失敗した場合の処理
+                    self.userdefault.set(false, forKey: "firstLaunch")
                     print("something error")
                 }else{
                     let member = NCMBObject(className: "member")
@@ -73,11 +74,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.userdefault.set(num, forKey: "myDiaryNumber")
                     generalData?.save(nil)//同期
                     print("LaunchSucceed")
-                    
+                    self.userdefault.set(false, forKey: "firstLaunch")
                 }
             })
             // off the flag to know if it is first time to launch
-            userdefault.set(false, forKey: "firstLaunch")
         }
         return true
     }

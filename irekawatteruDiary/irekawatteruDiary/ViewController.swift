@@ -22,6 +22,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var myButton: UIButton!
     var anotherDiaryNum = -1
 
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var navigationBar: UINavigationItem!
     
@@ -30,11 +31,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         print("LunchedMainView!!!")
         navigationBar.leftBarButtonItem?.tintColor = UIColor.white
-        table.estimatedRowHeight = 100
+        table.estimatedRowHeight = 180
         table.rowHeight = UITableViewAutomaticDimension
         table.delegate = self
         table.dataSource = self
         table.separatorStyle = .none
+        
     }
     
     //このViewが表示されるたび呼び出されるメソッド
@@ -91,6 +93,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }else{
             //左上のボタン
             let favoriteBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(ViewController.onClickFavoriteBarButton(sender:)))
+            favoriteBarButton.tintColor = UIColor.white
 
             navigationItem.leftBarButtonItem = favoriteBarButton
             if userdefault.value(forKey: "irekawatteruNum") != nil{
@@ -154,7 +157,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             results = try query!.findObjects() as [AnyObject]
         } catch  let error1 as NSError  {
             print("error \(error1)")
-            return results as! [NCMBObject]
+    
+            return [NCMBObject]()
+        }
+        if(results.count == 0){
+            print(results)
+            errorAlert(text: "データの取得に失敗しました")
         }
         return results as! [NCMBObject]
     }
@@ -162,17 +170,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //入れ替わる
     @IBAction func irekawatteru(_ sender: Any) {
         
-        irekawatteruFlg = !irekawatteruFlg
-        let obj = getDiaryData("pQ4Dsf7DVU6f1ZtV", className: "general", keyName: "objectId")[0]
+        irekawatteruFlg = true
+        let objs = getDiaryData("pQ4Dsf7DVU6f1ZtV", className: "general", keyName: "objectId")
+        if(objs.count == 0){
+            print("error")
+            return
+        }
+        let obj = objs[0]
         let n = obj.object(forKey: "memberNum") as! Int
         var rand = -1
         let me = userdefault.value(forKey: "myDiaryNumber") as! Int
         repeat {
             rand = Int(arc4random_uniform(UInt32(n)))
             print(rand)
-        } while rand ==  me
+        } while rand ==  me || rand == anotherDiaryNum
         anotherDiaryNum = rand
         getAnotherDiary(flg: irekawatteruFlg,memberNum: rand)
+        userdefault.set(irekawatteruFlg, forKey: "irekawatteruFlg")
+        viewWillAppear(true)
+    }
+    
+    @IBAction func backToHome(_ sender: Any) {
+        irekawatteruFlg = false
+        getAnotherDiary(flg: irekawatteruFlg,memberNum: userdefault.value(forKey: "myDiaryNumber") as! Int)
         userdefault.set(irekawatteruFlg, forKey: "irekawatteruFlg")
         viewWillAppear(true)
     }
@@ -354,6 +374,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var results:[AnyObject] = []
         var id:[String] = []
         
+        indicator.startAnimating()
+        
         //指定したmemberを取ってくる
         if(flg){
             do {
@@ -376,9 +398,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 results = try diaryQuery!.findObjects() as [AnyObject]
             } catch  let error1 as NSError  {
                 print("\(error1)")
+                errorAlert(text: "データの取得に失敗しました.通信環境を確認してリトライしてください。")
+                return
             }
             
-            if results.count > 0 {
+            if results.count >= 0 {
                 for i in 0 ..< results.count{
                     let obj = results[i] as! NCMBObject
                     text.append(obj.object(forKey: "text") as! String)
@@ -399,7 +423,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }/*自分を更新*/
         else{
-
             let key = userdefault.value(forKey: "myDiaryId") as! String
             // クラスのNCMBObjectを作成
             let obj = NCMBObject(className: "member")
@@ -408,26 +431,42 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let query = NCMBQuery(className: "diary")
             query?.whereKey("myDiary", equalTo: obj)
-            // 設定されたobjectIdを元にデータストアからデータを取得
-            do {
-                results = try query!.findObjects() as [AnyObject]
-            } catch  let error1 as NSError  {
-                print("\(error1)")
-            }
-            if results.count > 0 {
-                for i in 0 ..< results.count{
-                    let obj = results[i] as! NCMBObject
-                    text.append(obj.object(forKey: "text") as! String)
-                    date.append(obj.object(forKey: "date") as! Date)
-                    comments.append(obj.object(forKey: "comments") as! Bool)
+            
+            query?.findObjectsInBackground({(objects, error) in
+                if (error != nil){
+                    self.errorAlert(text: "データの取得に失敗しました。")
+                }else{
+                    // 検索成功時の処理
+                    var num:Int
+                    results = objects! as! [NCMBObject]
+                    if results.count >= 0 {
+                        print(results)
+                        for i in 0 ..< results.count{
+                            let obj = results[i] as! NCMBObject
+                            text.append(obj.object(forKey: "text") as! String)
+                            date.append(obj.object(forKey: "date") as! Date)
+                            comments.append(obj.object(forKey: "comments") as! Bool)
+                        }
+                        num = results.count
+                        self.userdefault.set(date, forKey: "diaryDate")
+                        self.userdefault.set(num, forKey: "diaryNum")
+                        self.userdefault.set(text, forKey: "diaryText")
+                        self.userdefault.set(comments, forKey: "comments")
+                    }
                 }
-                num = results.count
-                userdefault.set(date, forKey: "diaryDate")
-                userdefault.set(num, forKey: "diaryNum")
-                userdefault.set(text, forKey: "diaryText")
-                userdefault.set(comments, forKey: "comments")
-            }
+            })
         }
+        indicator.stopAnimating()
+    }
+    
+    func errorAlert(text : String){
+        // アラートを作成
+        let alert = UIAlertController(
+            title: text,
+            message: "",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
     }
     
     internal func onClickFavoriteBarButton(sender: UIButton){

@@ -38,7 +38,6 @@ class CustomTableViewCell: UITableViewCell {
         //dateString = "\(dataComps.month!)月\(dataComps.day!)日 \(dataComps.hour!):\(dataComps.minute!)"
         dateString = "\(dataComps.day!)"
         timeString = "\(dataComps.hour!) : \(dataComps.minute!)"
-        print(dataComps)
         diaryText.numberOfLines = 0
         diaryText.lineBreakMode = NSLineBreakMode.byWordWrapping
         let c:[CGFloat]
