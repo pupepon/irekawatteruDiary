@@ -29,64 +29,32 @@ class EditViewController: UIViewController {
         //キーボード召喚
         editText.becomeFirstResponder()
         //変数読み込み
-        if(!flg){
-            if userDefault.value(forKey: "diaryDate") != nil{
-                diaryDate = userDefault.value(forKey: "diaryDate") as! [Date]
-                print("diaryDate",diaryDate)
-            }else{
-                print("diaryDate is nil")
-            }
-            
-            if userDefault.value(forKey: "diaryText") != nil{
-                diaryText = userDefault.value(forKey: "diaryText") as! [String]
-                print("diaryText",diaryText)
-            }else{
-                print("diaryText is nil")
-            }
-            
-            if userDefault.value(forKey: "comments") != nil{
-                comments = userDefault.value(forKey: "comments") as! [Bool]
-                print("CommentFlg",diaryText)
-            }else{
-                print("commentFlg is nil")
-            }
-            
-            if(userDefault.value(forKey:"diaryId") != nil){
-                diaryId = userDefault.value(forKey: "diaryId") as! [String]
-                print("diaryId",diaryId)
-            }else{
-                print("diaryId is nil")
-            }
-            
+        if userDefault.value(forKey: "diaryDate") != nil{
+            diaryDate = userDefault.value(forKey: "diaryDate") as! [Date]
+            print("diaryDate",diaryDate)
         }else{
-            if userDefault.value(forKey: "irekawatteruText") != nil{
-                diaryText = userDefault.value(forKey: "irekawatteruText") as! [String]
-                print("diaryText",diaryText)
-            }else{
-                print("diaryText is nil")
-            }
-            
-            if userDefault.value(forKey: "irekawatteruDate") != nil{
-                diaryDate = userDefault.value(forKey: "irekawatteruDate") as! [Date]
-                print("diaryDate",diaryDate)
-            }else{
-                print("diaryDate is nil")
-            }
-            
-            if userDefault.value(forKey: "comments") != nil{
-                comments = userDefault.value(forKey: "comments") as! [Bool]
-                print("CommentFlg",diaryText)
-            }else{
-                print("commentFlg is nil")
-            }
-            
-            if(userDefault.value(forKey:"irekawatteruDiaryId") != nil){
-                diaryId = userDefault.value(forKey: "irekawatteruDiaryId") as! [String]
-                print("irekawatteruDiaryId",diaryId)
-            }else{
-                print("irekawatteruDiaryId is nil")
-            }
-            
+            print("diaryDate is nil")
+        }
+        
+        if userDefault.value(forKey: "diaryText") != nil{
+            diaryText = userDefault.value(forKey: "diaryText") as! [String]
+            print("diaryText",diaryText)
+        }else{
+            print("diaryText is nil")
+        }
+        
+        if userDefault.value(forKey: "comments") != nil{
+            comments = userDefault.value(forKey: "comments") as! [Bool]
+            print("CommentFlg",diaryText)
+        }else{
+            print("commentFlg is nil")
+        }
+        
+        if(userDefault.value(forKey:"diaryId") != nil){
+            diaryId = userDefault.value(forKey: "diaryId") as! [String]
+            print("diaryId",diaryId)
+        }else{
+            print("diaryId is nil")
         }
 
     }
@@ -194,17 +162,10 @@ class EditViewController: UIViewController {
             diaryText[tagNum] = editText.text
             diaryDate[tagNum] = date
         }
-        if flg {
-            userDefault.set(diaryText, forKey: "irekawatteruText")
-            userDefault.set(diaryText.count, forKey:"irekawatteruNum")
-            userDefault.set(diaryDate, forKey:"irekawatteruDate")
-            userDefault.set(comments, forKey: "comments")
-        }else{
-            userDefault.set(diaryText, forKey: "diaryText")
-            userDefault.set(diaryText.count, forKey:"diaryNum")
-            userDefault.set(diaryDate, forKey:"diaryDate")
-            userDefault.set(comments, forKey: "comments")
-        }
+        userDefault.set(diaryText, forKey: "diaryText")
+        userDefault.set(diaryText.count, forKey:"diaryNum")
+        userDefault.set(diaryDate, forKey:"diaryDate")
+        userDefault.set(comments, forKey: "comments")
     }
     
     override func didReceiveMemoryWarning() {

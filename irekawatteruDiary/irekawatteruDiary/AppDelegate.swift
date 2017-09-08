@@ -43,13 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             userdefault.set([0.1411,0.3960,0.5647059083], forKey: "backGround")//RGB#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
             userdefault.set("myDiary", forKey: "diaryName")
             
-            //入れ替わり先日記
-            userdefault.set(0,forKey:"irekawatteruNum")
-            userdefault.set([String](),forKey:"irekawatteruText")
-            userdefault.set([Date](),forKey:"irekawatteruDate")
-            userdefault.set([0.1411,0.3960,0.5647059083], forKey: "irekawtteruBackGround")//RGB#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
-            userdefault.set("myDiary", forKey: "irekawatteruDiaryName")
-            
             // データストアに日記を追加
             let generalData = NCMBObject(className: "general")
             generalData?.objectId = "pQ4Dsf7DVU6f1ZtV"

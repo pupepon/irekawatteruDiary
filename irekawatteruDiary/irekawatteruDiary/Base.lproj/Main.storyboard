@@ -23,13 +23,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hSH-1I-NPL">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hSH-1I-NPL">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.54630692619999999" green="0.70072657159999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X1V-Qt-ZbQ">
+                                <rect key="frame" x="0.0" y="64" width="414" height="35"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7C4-gd-d85">
+                                        <rect key="frame" x="0.0" y="7" width="414" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="7C4-gd-d85" firstAttribute="centerX" secondItem="X1V-Qt-ZbQ" secondAttribute="centerX" id="76G-SL-78W"/>
+                                    <constraint firstItem="7C4-gd-d85" firstAttribute="leading" secondItem="X1V-Qt-ZbQ" secondAttribute="leading" id="8m3-B0-4B1"/>
+                                    <constraint firstItem="7C4-gd-d85" firstAttribute="centerY" secondItem="X1V-Qt-ZbQ" secondAttribute="centerY" id="PQ4-fD-0wG"/>
+                                    <constraint firstAttribute="trailing" secondItem="7C4-gd-d85" secondAttribute="trailing" id="ZBo-8p-2TV"/>
+                                    <constraint firstAttribute="height" constant="35" id="uB1-XL-3oe"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="diaryTable" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xB4-Wb-13V">
-                                <rect key="frame" x="16" y="50" width="382" height="642"/>
+                                <rect key="frame" x="16" y="99" width="382" height="593"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" alpha="0.59999999999999998" contentMode="scaleToFill" restorationIdentifier="diaryCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="diaryCell" rowHeight="90" id="B7A-RG-0Nz" customClass="CustomTableViewCell" customModule="irekawatteruDiary" customModuleProvider="target">
@@ -49,7 +67,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="qZz-6v-jnU">
-                                                    <rect key="frame" x="19" y="41" width="21" height="20.333333333333336"/>
+                                                    <rect key="frame" x="19" y="41" width="21" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -71,7 +89,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxk-fe-WQe">
-                                                    <rect key="frame" x="19" y="66.333333333333314" width="1" height="18.666666666666671"/>
+                                                    <rect key="frame" x="19" y="66" width="1" height="19"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="1" id="ZDv-Rd-3cW"/>
@@ -159,19 +177,27 @@
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="7cD-PY-Kvx">
-                                <rect key="frame" x="176" y="380" width="37" height="37"/>
+                                <rect key="frame" x="177" y="381" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="hSH-1I-NPL" firstAttribute="leading" secondItem="o5F-6X-1Mh" secondAttribute="leading" id="3c3-fT-DPX"/>
+                            <constraint firstItem="hSH-1I-NPL" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="C5y-Ax-dhn"/>
                             <constraint firstItem="o5F-6X-1Mh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="FXn-Eh-Syq"/>
-                            <constraint firstItem="xB4-Wb-13V" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="50" id="Fwa-H5-dbU"/>
                             <constraint firstItem="xB4-Wb-13V" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KGV-oQ-cZ9"/>
                             <constraint firstAttribute="trailing" secondItem="xB4-Wb-13V" secondAttribute="trailing" constant="16" id="Qyq-3g-m3r"/>
+                            <constraint firstItem="X1V-Qt-ZbQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Y0e-Ga-FiO"/>
+                            <constraint firstItem="xB4-Wb-13V" firstAttribute="top" secondItem="X1V-Qt-ZbQ" secondAttribute="bottom" id="bfl-U4-HU5"/>
                             <constraint firstAttribute="trailing" secondItem="o5F-6X-1Mh" secondAttribute="trailing" id="gGv-Of-oFK"/>
+                            <constraint firstItem="X1V-Qt-ZbQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="gVQ-ls-97E"/>
                             <constraint firstItem="o5F-6X-1Mh" firstAttribute="top" secondItem="xB4-Wb-13V" secondAttribute="bottom" id="gpn-0k-ENm"/>
+                            <constraint firstItem="hSH-1I-NPL" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="hWi-dJ-jMW"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="o5F-6X-1Mh" secondAttribute="bottom" id="lWm-XX-AQr"/>
+                            <constraint firstItem="xB4-Wb-13V" firstAttribute="centerX" secondItem="hSH-1I-NPL" secondAttribute="centerX" id="lvt-8K-1uq"/>
+                            <constraint firstAttribute="trailing" secondItem="X1V-Qt-ZbQ" secondAttribute="trailing" id="o2M-C2-LGn"/>
                             <constraint firstItem="xB4-Wb-13V" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="raQ-eX-7NA"/>
                         </constraints>
                     </view>
@@ -189,6 +215,8 @@
                         <outlet property="indicator" destination="7cD-PY-Kvx" id="VUt-KU-ohQ"/>
                         <outlet property="navigationBar" destination="Xmd-mU-h3h" id="PHN-NB-34V"/>
                         <outlet property="table" destination="xB4-Wb-13V" id="LdR-i9-sIv"/>
+                        <outlet property="yearMonthLabel" destination="7C4-gd-d85" id="Ubl-Dz-csQ"/>
+                        <outlet property="yearMonthView" destination="X1V-Qt-ZbQ" id="lD1-wp-ggG"/>
                         <segue destination="DO9-NL-8xw" kind="push" identifier="editDiary" id="wgd-md-ksa"/>
                     </connections>
                 </viewController>

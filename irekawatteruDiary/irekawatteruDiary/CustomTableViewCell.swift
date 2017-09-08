@@ -42,11 +42,7 @@ class CustomTableViewCell: UITableViewCell {
         diaryText.lineBreakMode = NSLineBreakMode.byWordWrapping
         let c:[CGFloat]
         let flg = userdefault.value(forKey: "irekawatteruFlg") as! Bool
-        if(flg){
-            c = userdefault.value(forKey: "irekawatteruBackGround") as! [CGFloat]
-        }else{
-            c = userdefault.value(forKey: "backGround") as! [CGFloat]
-        }
+        c = userdefault.value(forKey: "backGround") as! [CGFloat]
         let color: UIColor = UIColor(red: c[0], green: c[1], blue: c[2], alpha: 1)
         dateLabel.textColor = color
         weekDay.textColor = color

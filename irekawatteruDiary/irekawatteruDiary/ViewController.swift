@@ -26,6 +26,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var navigationBar: UINavigationItem!
     
+    @IBOutlet weak var yearMonthView: UIView!
+    @IBOutlet weak var yearMonthLabel: UILabel!
     @IBOutlet weak var changeButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,116 +38,69 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         table.delegate = self
         table.dataSource = self
         table.separatorStyle = .none
-        
     }
     
     //このViewが表示されるたび呼び出されるメソッド
     override func viewWillAppear(_ animated: Bool) {
         
-        //userDefaultから値持ってくる
-        irekawatteruFlg = userdefault.value(forKey: "irekawatteruFlg") as! Bool
-        if(!irekawatteruFlg){
-            navigationItem.leftBarButtonItem = editButtonItem
-            if userdefault.value(forKey: "diaryNum") != nil{
-                diaryNum = userdefault.value(forKey: "diaryNum") as! Int
-                print("diaryNum",diaryNum)
-            }else{
-                print("diaryNum is nil")
-            }
-            
-            if userdefault.value(forKey: "diaryDate") != nil{
-                diaryDate = userdefault.value(forKey: "diaryDate") as! [Date]
-                print("diaryDate",diaryDate)
-            }else{
-                print("diaryDate is nil")
-            }
-            
-            if userdefault.value(forKey: "diaryText") != nil{
-                diaryText = userdefault.value(forKey: "diaryText") as! [String]
-                print("diaryText",diaryText)
-            }else{
-                print("diaryText is nil")
-            }
-            
-            if userdefault.value(forKey: "comments") != nil{
-                commentFlg = userdefault.value(forKey: "comments") as! [Bool]
-                print("commentFlg",commentFlg)
-            }else{
-                print("commentFlg is nil")
-            }
-            
-            if userdefault.value(forKey: "backGround") != nil{
-                let c = userdefault.value(forKey: "backGround") as! [CGFloat]
-                let color: UIColor = UIColor(red: c[0], green: c[1], blue: c[2], alpha: 1)
-                backView.backgroundColor = color
-                print("bgColor",color)
-            }else{
-                print("bgColor is nil")
-            }
-            
-            if userdefault.value(forKey: "diaryName") != nil{
-                navigationBar.title = userdefault.value(forKey: "diaryName") as? String
-            }else{
-                print("diaryName is nil")
-                navigationBar.title = "MyDiary"
-            }
-            
+        if userdefault.value(forKey: "diaryNum") != nil{
+            diaryNum = userdefault.value(forKey: "diaryNum") as! Int
+            print("diaryNum",diaryNum)
         }else{
+            print("diaryNum is nil")
+        }
+        
+        if userdefault.value(forKey: "diaryDate") != nil{
+            diaryDate = userdefault.value(forKey: "diaryDate") as! [Date]
+            print("diaryDate",diaryDate)
+        }else{
+            print("diaryDate is nil")
+        }
+        
+        if userdefault.value(forKey: "diaryText") != nil{
+            diaryText = userdefault.value(forKey: "diaryText") as! [String]
+            print("diaryText",diaryText)
+        }else{
+            print("diaryText is nil")
+        }
+        
+        if userdefault.value(forKey: "comments") != nil{
+            commentFlg = userdefault.value(forKey: "comments") as! [Bool]
+            print("commentFlg",commentFlg)
+        }else{
+            print("commentFlg is nil")
+        }
+        
+        if userdefault.value(forKey: "backGround") != nil{
+            let c = userdefault.value(forKey: "backGround") as! [CGFloat]
+            let color: UIColor = UIColor(red: c[0], green: c[1], blue: c[2], alpha: 1)
+            let headerColor : UIColor = UIColor(red: c[0]*0.7, green: c[1]*0.7, blue: c[2]*0.7, alpha: 1)
+            backView.backgroundColor = color
+            yearMonthView.backgroundColor = headerColor
+            print("bgColor",color)
+        }else{
+            print("bgColor is nil")
+        }
+        
+        if userdefault.value(forKey: "diaryName") != nil{
+            navigationBar.title = userdefault.value(forKey: "diaryName") as? String
+        }else{
+            print("diaryName is nil")
+            navigationBar.title = "MyDiary"
+        }
+        
+        if(irekawatteruFlg){
             //左上のボタン
             let favoriteBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(ViewController.onClickFavoriteBarButton(sender:)))
             favoriteBarButton.tintColor = UIColor.white
-
             navigationItem.leftBarButtonItem = favoriteBarButton
-            if userdefault.value(forKey: "irekawatteruNum") != nil{
-                diaryNum = userdefault.value(forKey: "irekawatteruNum") as! Int
-                print("diaryNum",diaryNum)
-            }else{
-                print("diaryNum is nil")
-            }
-            
-            if userdefault.value(forKey: "irekawatteruText") != nil{
-                diaryText = userdefault.value(forKey: "irekawatteruText") as! [String]
-                print("diaryText",diaryText)
-            }else{
-                print("diaryText is nil")
-            }
-            
-            if userdefault.value(forKey: "irekawatteruDate") != nil{
-                diaryDate = userdefault.value(forKey: "irekawatteruDate") as! [Date]
-                print("diaryDate",diaryDate)
-            }else{
-                print("diaryDate is nil")
-            }
-            
-            if userdefault.value(forKey: "comments") != nil{
-                commentFlg = userdefault.value(forKey: "comments") as! [Bool]
-                print("commentflg",commentFlg)
-            }else{
-                print("commentFlg is nil")
-            }
-            
-            if userdefault.value(forKey: "irekawatteruBackGround") != nil{
-                let c = userdefault.value(forKey: "irekawatteruBackGround") as! [CGFloat]
-                let color: UIColor = UIColor(red: c[0], green: c[1], blue: c[2], alpha: 1)
-                backView.backgroundColor = color
-                print("bgColor",color)
-            }else{
-                print("bgColor is nil")
-            }
-            
-            if userdefault.value(forKey: "irekawatteruDiaryName") != nil{
-                navigationBar.title = userdefault.value(forKey: "irekawatteruDiaryName") as? String
-            }else{
-                print("diaryName is nil")
-                navigationBar.title = "MyDiary"
-            }
-        }
-        if(irekawatteruFlg){
-            changeButton.setTitle("戻る", for: UIControlState.normal)
         }else{
-            changeButton.setTitle("入れ替わる", for: UIControlState.normal)
+            navigationItem.leftBarButtonItem = editButtonItem
+            navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+            navigationItem.leftBarButtonItem?.title = "設定"
         }
         table.reloadData()
+        indicator.stopAnimating()
     }
     
     //ncmbデータストア classNameクラスのdataをキーにしてobjectを読み込む
@@ -170,6 +125,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //入れ替わる
     @IBAction func irekawatteru(_ sender: Any) {
         
+        indicator.startAnimating()
         irekawatteruFlg = true
         let objs = getDiaryData("pQ4Dsf7DVU6f1ZtV", className: "general", keyName: "objectId")
         if(objs.count == 0){
@@ -187,14 +143,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         anotherDiaryNum = rand
         getAnotherDiary(flg: irekawatteruFlg,memberNum: rand)
         userdefault.set(irekawatteruFlg, forKey: "irekawatteruFlg")
-        viewWillAppear(true)
+        //indicator.stopAnimating()
     }
     
     @IBAction func backToHome(_ sender: Any) {
         irekawatteruFlg = false
+        indicator.startAnimating()
         getAnotherDiary(flg: irekawatteruFlg,memberNum: userdefault.value(forKey: "myDiaryNumber") as! Int)
         userdefault.set(irekawatteruFlg, forKey: "irekawatteruFlg")
-        viewWillAppear(true)
+        //indicator.stopAnimating()
+        
     }
     
     //TableView////////////////////////////////////////////////
@@ -334,6 +292,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.performSegue(withIdentifier: "editDiary", sender: diaryNum-indexPath.section-1)
         }
     }
+    
+    /*
+     * 各indexPathのcellが表示される直前に呼ばれます．
+     */
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let path: [IndexPath]? = table.indexPathsForVisibleRows
+        let num = path?.count
+        if(num != nil){
+            let date = diaryDate[diaryNum - (path?[num!-1].section)!]
+            let cal = Calendar.current//carender
+            let dataComps = cal.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+            
+            yearMonthLabel.text = String(dataComps.year!) + "年" + String(dataComps.month!) as String + "月"
+        }
+    }
+    
+    
     //TavleView////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////
     
@@ -363,21 +338,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //他のdiaryをuserDefaultに保存する
     func getAnotherDiary(flg: Bool,memberNum: Int){
         // 一致するtextを検索するNCMBQueryを作成
-        let memberQuery = NCMBQuery(className: "member")
-        memberQuery?.whereKey("number", equalTo: memberNum)
         var keyObject:NCMBObject = NCMBObject()
         var text:[String] = []
         var date:[Date] = []
-        var num :Int
+        var num :Int = 0
         var comments:[Bool] = []
         var title:String = ""
         var results:[AnyObject] = []
         var id:[String] = []
         
-        indicator.startAnimating()
+        //indicator.startAnimating()
         
         //指定したmemberを取ってくる
         if(flg){
+            let memberQuery = NCMBQuery(className: "member")
+            memberQuery?.whereKey("number", equalTo: memberNum)
             do {
                 results = try memberQuery!.findObjects() as [AnyObject]
             } catch  let error1 as NSError  {
@@ -412,51 +387,74 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
                 num = results.count
                 let key:String = keyObject.objectId
-                userdefault.set(title, forKey: "irekawatteruDiaryName")
+                userdefault.set(title, forKey: "diaryName")
                 userdefault.set(comments, forKey: "comments")
-                userdefault.set(c, forKey: "irekawatteruBackGround")
+                userdefault.set(c, forKey: "backGround")
                 userdefault.set(key, forKey: "irekawatteruId")
-                userdefault.set(date, forKey: "irekawatteruDate")
-                userdefault.set(num, forKey: "irekawatteruNum")
-                userdefault.set(text, forKey: "irekawatteruText")
+                userdefault.set(date, forKey: "diaryDate")
+                userdefault.set(num, forKey: "diaryNum")
+                userdefault.set(text, forKey: "diaryText")
                 userdefault.set(id, forKey: "irekawatteruDiaryId")
             }
+            viewWillAppear(true)
+            
+            
         }/*自分を更新*/
         else{
+            let memberQuery = NCMBQuery(className: "member")
             let key = userdefault.value(forKey: "myDiaryId") as! String
-            // クラスのNCMBObjectを作成
-            let obj = NCMBObject(className: "member")
-            // objectIdプロパティを設定
-            obj?.objectId = key
+            memberQuery?.whereKey("objectId", equalTo: key)
+            do {
+                results = try memberQuery!.findObjects() as [AnyObject]
+            } catch  let error1 as NSError  {
+                errorAlert(text: "データの取得に失敗しました")
+                return
+            }
+            if results.count > 0 {
+                keyObject = results[0] as! NCMBObject
+                print("result",results)
+            }else{
+                errorAlert(text: "データの取得に失敗しました")
+                return
+            }
+            
+            let c = keyObject.object(forKey: "backGround") as! [CGFloat]
+            title = keyObject.object(forKey: "diaryName") as! String
+            
             
             let query = NCMBQuery(className: "diary")
-            query?.whereKey("myDiary", equalTo: obj)
+            query?.whereKey("myDiary", equalTo: keyObject)
             
             query?.findObjectsInBackground({(objects, error) in
                 if (error != nil){
                     self.errorAlert(text: "データの取得に失敗しました。")
                 }else{
                     // 検索成功時の処理
-                    var num:Int
                     results = objects! as! [NCMBObject]
                     if results.count >= 0 {
-                        print(results)
                         for i in 0 ..< results.count{
                             let obj = results[i] as! NCMBObject
                             text.append(obj.object(forKey: "text") as! String)
                             date.append(obj.object(forKey: "date") as! Date)
                             comments.append(obj.object(forKey: "comments") as! Bool)
                         }
+                        print(text)
+                        print(comments)
+                        print("cnt",results.count)
                         num = results.count
+                        
+                        self.userdefault.set(title, forKey: "diaryName")
+                        self.userdefault.set(c, forKey: "backGround")
                         self.userdefault.set(date, forKey: "diaryDate")
                         self.userdefault.set(num, forKey: "diaryNum")
                         self.userdefault.set(text, forKey: "diaryText")
                         self.userdefault.set(comments, forKey: "comments")
+                        self.viewWillAppear(true)
                     }
                 }
             })
         }
-        indicator.stopAnimating()
+        
     }
     
     func errorAlert(text : String){
