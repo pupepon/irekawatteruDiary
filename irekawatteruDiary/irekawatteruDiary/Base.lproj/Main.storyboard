@@ -141,7 +141,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="eNN-8f-12r"/>
                                     <barButtonItem image="home.png" style="plain" id="5pz-Fh-Zfg">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1HM-dy-wB5">
-                                            <rect key="frame" x="135" y="7" width="30" height="30"/>
+                                            <rect key="frame" x="106" y="7" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="home.png"/>
                                             <connections>
@@ -149,10 +149,21 @@
                                             </connections>
                                         </button>
                                     </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="xkm-hz-lnO"/>
+                                    <barButtonItem style="plain" id="FwK-W5-ROc">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9yN-vz-qrb">
+                                            <rect key="frame" x="188" y="7" width="34" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="sort_img.png"/>
+                                            <connections>
+                                                <action selector="sortDiary:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iDD-Rv-HWa"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Ewv-jH-r87"/>
                                     <barButtonItem style="plain" id="MXR-eQ-FuF">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zzp-jB-bHi">
-                                            <rect key="frame" x="249" y="7" width="30" height="30"/>
+                                            <rect key="frame" x="278" y="7" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="fav.png"/>
                                             <connections>
@@ -464,6 +475,7 @@
         <image name="home.png" width="50" height="50"/>
         <image name="reload.png" width="50" height="50"/>
         <image name="settings.png" width="50" height="50"/>
+        <image name="sort_img.png" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wVl-yP-ekI"/>

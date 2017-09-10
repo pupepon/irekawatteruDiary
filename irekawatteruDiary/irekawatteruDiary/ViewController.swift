@@ -21,6 +21,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var irekawatteruFlg:Bool = false
     var myButton: UIButton!
     var anotherDiaryNum = -1
+    var sortFlg:Bool = false
 
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var backView: UIView!
@@ -155,6 +156,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    
+    @IBAction func sortDiary(_ sender: Any) {
+        sortFlg = !sortFlg
+        table.reloadData()
+    }
+    
+    
     //TableView////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////
     
@@ -163,15 +171,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // セルを取得
         let cell = tableView.dequeueReusableCell(withIdentifier: "diaryCell") as! CustomTableViewCell
         
-        cell.setCell(date: diaryDate[diaryNum - indexPath.section-1], text: diaryText[diaryNum - indexPath.section-1])
+        if(sortFlg){
+            cell.setCell(date: diaryDate[diaryNum - indexPath.section-1], text: diaryText[diaryNum - indexPath.section-1])
+            if commentFlg[diaryNum-indexPath.section-1]{
+                cell.layer.borderColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1).cgColor
+                cell.layer.borderWidth = 3.0
+            }else{
+                cell.layer.borderWidth = 0
+            }
+            
+        }else{
+            cell.setCell(date: diaryDate[indexPath.section], text: diaryText[indexPath.section])
+            if commentFlg[indexPath.section]{
+                cell.layer.borderColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1).cgColor
+                cell.layer.borderWidth = 3.0
+            }else{
+                cell.layer.borderWidth = 0
+            }
+        }
         cell.layer.cornerRadius = 3
         
-        if commentFlg[diaryNum-indexPath.section-1]{
-            cell.layer.borderColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1).cgColor
-            cell.layer.borderWidth = 3.0
-        }else{
-            cell.layer.borderWidth = 0
-        }
         return cell
     }
     
@@ -224,11 +243,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // 削除のとき.
         if editingStyle == UITableViewCellEditingStyle.delete {
             
-            let text = diaryText[diaryNum - indexPath.section-1]
-            let date = diaryDate[diaryNum - indexPath.section-1]
-            diaryText.remove(at: diaryNum - indexPath.section-1)
-            diaryDate.remove(at: diaryNum - indexPath.section-1)
-            commentFlg.remove(at: diaryNum - indexPath.section-1)
+            let date:Date
+            
+            if(sortFlg){
+                date = diaryDate[diaryNum - indexPath.section-1]
+                diaryText.remove(at: diaryNum - indexPath.section-1)
+                diaryDate.remove(at: diaryNum - indexPath.section-1)
+                commentFlg.remove(at: diaryNum - indexPath.section-1)
+            }else{
+                date = diaryDate[indexPath.section]
+                diaryText.remove(at:indexPath.section)
+                diaryDate.remove(at:indexPath.section)
+                commentFlg.remove(at:indexPath.section)
+            }
+            
             diaryNum -= 1
             
             userdefault.set(diaryNum, forKey: "diaryNum")
