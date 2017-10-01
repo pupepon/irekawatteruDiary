@@ -41,13 +41,19 @@ class SettingViewController: UIViewController,UICollectionViewDataSource, UIColl
         //titleの保存
         if(diaryNameTextfield.text != nil){
             saveObject(className: "member", id: id!, key: "diaryName", value: diaryNameTextfield.text!)
-            userdefault.set(diaryNameTextfield.text, forKey: "diaryName")
         }
         
         //背景色の保存
         if(colorRGB != []){
             saveObject(className: "member", id: id!, key: "backGround", value: colorRGB)
-            userdefault.set(colorRGB, forKey: "backGround")
+        }
+    }
+    
+    @IBAction func comentFlgSwitch(_ sender: UISwitch) {
+        if(sender.isOn){
+            userdefault.set(true,forKey:"commentFlg")
+        }else{
+            userdefault.set(false,forKey:"commentFlg")
         }
     }
     

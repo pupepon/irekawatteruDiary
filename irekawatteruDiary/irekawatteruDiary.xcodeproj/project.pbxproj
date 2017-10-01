@@ -17,6 +17,7 @@
 		9D2F49E91EAF3693009451ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D2F49E81EAF3693009451ED /* Assets.xcassets */; };
 		9D2F49EC1EAF3693009451ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D2F49EA1EAF3693009451ED /* LaunchScreen.storyboard */; };
 		9D6E61D01EE7BF29006D88FB /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E61CF1EE7BF29006D88FB /* SettingViewController.swift */; };
+		9D86710B1F80C0E900225ED0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D86710A1F80C0E900225ED0 /* GoogleService-Info.plist */; };
 		9DCD57FA1ED005CA009E78C0 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD57F91ED005CA009E78C0 /* CustomTableViewCell.swift */; };
 		9DDAA0BA1EB1A87A003D5E40 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDAA0B91EB1A87A003D5E40 /* EditViewController.swift */; };
 		9DEDEDBE1F49C0480030C16C /* favoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEDEDBD1F49C0480030C16C /* favoritesViewController.swift */; };
@@ -39,6 +40,7 @@
 		9D2F49EB1EAF3693009451ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D2F49ED1EAF3693009451ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D6E61CF1EE7BF29006D88FB /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		9D86710A1F80C0E900225ED0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9DCD57F91ED005CA009E78C0 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		9DDAA0B91EB1A87A003D5E40 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		9DEDEDBD1F49C0480030C16C /* favoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = favoritesViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				9D2F49E81EAF3693009451ED /* Assets.xcassets */,
 				9D2F49EA1EAF3693009451ED /* LaunchScreen.storyboard */,
 				9D2F49ED1EAF3693009451ED /* Info.plist */,
+				9D86710A1F80C0E900225ED0 /* GoogleService-Info.plist */,
 			);
 			path = irekawatteruDiary;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 			files = (
 				9D19BD151F4D4B9200A5C22C /* settings.png in Resources */,
 				9D19BD111F4C50F600A5C22C /* reload.png in Resources */,
+				9D86710B1F80C0E900225ED0 /* GoogleService-Info.plist in Resources */,
 				9D19BD131F4C50FF00A5C22C /* home.png in Resources */,
 				9DF248D11F627DDA000D3171 /* sort_img.png in Resources */,
 				9D2F49EC1EAF3693009451ED /* LaunchScreen.storyboard in Resources */,

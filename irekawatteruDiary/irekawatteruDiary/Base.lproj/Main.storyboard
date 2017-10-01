@@ -292,16 +292,32 @@
                                     <outlet property="delegate" destination="D9E-F1-2r6" id="8wd-b2-z4F"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="コメントを表示する" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imw-Wp-3fm">
+                                <rect key="frame" x="129" y="352" width="156" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TmK-Uv-zWb">
+                                <rect key="frame" x="183" y="381" width="51" height="31"/>
+                                <connections>
+                                    <action selector="comentFlgSwitch:" destination="D9E-F1-2r6" eventType="valueChanged" id="Y6k-iP-QjH"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="PWa-ru-WuM" firstAttribute="leading" secondItem="Hq1-9e-ZgG" secondAttribute="leading" constant="16" id="QME-tk-4jF"/>
                             <constraint firstItem="kva-JB-SWv" firstAttribute="centerX" secondItem="Hq1-9e-ZgG" secondAttribute="centerX" id="VfA-4s-AaU"/>
+                            <constraint firstItem="TmK-Uv-zWb" firstAttribute="top" secondItem="imw-Wp-3fm" secondAttribute="bottom" constant="8" id="ZwU-dG-CZO"/>
                             <constraint firstAttribute="trailing" secondItem="PWa-ru-WuM" secondAttribute="trailing" constant="16" id="e0v-jw-trr"/>
                             <constraint firstItem="PWa-ru-WuM" firstAttribute="top" secondItem="kva-JB-SWv" secondAttribute="bottom" constant="8" id="eYt-cu-IfW"/>
                             <constraint firstItem="5G8-Dt-4ug" firstAttribute="top" secondItem="HUf-Bh-G5G" secondAttribute="bottom" constant="30" id="iTd-H0-iXI"/>
                             <constraint firstItem="5G8-Dt-4ug" firstAttribute="centerX" secondItem="Hq1-9e-ZgG" secondAttribute="centerX" id="ifA-CY-etB"/>
+                            <constraint firstItem="TmK-Uv-zWb" firstAttribute="centerX" secondItem="Hq1-9e-ZgG" secondAttribute="centerX" id="itv-Wl-aQK"/>
+                            <constraint firstItem="imw-Wp-3fm" firstAttribute="centerX" secondItem="Hq1-9e-ZgG" secondAttribute="centerX" id="ntV-O2-wpe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="sZA-nq-SJ7" secondAttribute="trailing" constant="60" id="oYM-Ue-Hen"/>
+                            <constraint firstItem="imw-Wp-3fm" firstAttribute="top" secondItem="PWa-ru-WuM" secondAttribute="bottom" constant="60" id="shs-hd-mZg"/>
                             <constraint firstItem="sZA-nq-SJ7" firstAttribute="top" secondItem="5G8-Dt-4ug" secondAttribute="bottom" constant="8" id="sr5-cu-a0E"/>
                             <constraint firstItem="sZA-nq-SJ7" firstAttribute="leading" secondItem="Hq1-9e-ZgG" secondAttribute="leadingMargin" constant="60" id="wle-hT-AnM"/>
                             <constraint firstItem="kva-JB-SWv" firstAttribute="top" secondItem="sZA-nq-SJ7" secondAttribute="bottom" constant="60" id="yqg-WZ-Atk"/>
@@ -439,8 +455,15 @@
                             <constraint firstItem="jx7-Eu-zl0" firstAttribute="top" secondItem="Jyp-Sn-D6V" secondAttribute="bottom" id="h5Y-w4-tCc"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="XOc-ja-iV0"/>
+                    <navigationItem key="navigationItem" id="XOc-ja-iV0">
+                        <barButtonItem key="rightBarButtonItem" title="戻る" id="9Bt-hq-a2M">
+                            <connections>
+                                <segue destination="ycK-e7-mYS" kind="unwind" unwindAction="onlyBackWithSegue:" id="EDD-s4-3HH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="table" destination="06D-3G-JPw" id="dxZ-5a-mGt"/>
                         <segue destination="ycK-e7-mYS" kind="unwind" unwindAction="onlyBackWithSegue:" id="c7C-LY-Unt"/>
                         <segue destination="ycK-e7-mYS" kind="unwind" identifier="back" unwindAction="backAndChangeWithSegue:" id="ksT-rk-fDI"/>
                     </connections>

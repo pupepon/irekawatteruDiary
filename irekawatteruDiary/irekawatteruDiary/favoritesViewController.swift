@@ -10,11 +10,13 @@ import UIKit
 
 class favoritesViewController: UIViewController , UITableViewDataSource, UITableViewDelegate {
     
-    let favorites = UserDefaults.standard.value(forKey: "favorites") as! [String:Int]
+    @IBOutlet weak var table: UITableView!
+    var favorites = UserDefaults.standard.value(forKey: "favorites") as! [String:Int]
     var nums = [Int]()
-    
+    var names = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.leftBarButtonItem = editButtonItem
         // Do any additional setup after loading the view.
     }
 
@@ -27,7 +29,6 @@ class favoritesViewController: UIViewController , UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // セルを取得
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        var names = [String]()
         for (key,val) in favorites {
             names.append(key)
             nums.append(val)
@@ -45,6 +46,28 @@ class favoritesViewController: UIViewController , UITableViewDataSource, UITable
     // セルが選択された時に呼ばれるデリゲートメソッド
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "back", sender: nums[indexPath.row])
+    }
+    
+    //編集
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        table.isEditing = editing
+    }
+    
+    
+    //削除
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        // 削除のとき.
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            print("削除")
+            
+            // 指定されたセルのオブジェクトをmyItemsから削除する.
+            favorites.removeValue(forKey: names[indexPath.row])
+            
+            // TableViewを再読み込み.
+            table.reloadData()
+        }
     }
     
     //画面遷移の時に呼ばれるメソッド

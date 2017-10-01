@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var diaryText:[String] = []
     var diaryDate:[Date] = []
     var diaryId:[String] = []
-    var commentFlg:[Bool] = [false]
+    var coment:[Bool] = [false]
     var irekawatteruFlg:Bool = false
     var myButton: UIButton!
     var anotherDiaryNum = -1
@@ -66,10 +66,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         if userdefault.value(forKey: "comments") != nil{
-            commentFlg = userdefault.value(forKey: "comments") as! [Bool]
-            print("commentFlg",commentFlg)
+            coment = userdefault.value(forKey: "comments") as! [Bool]
+            print("coment",coment)
         }else{
-            print("commentFlg is nil")
+            print("coment is nil")
         }
         
         if userdefault.value(forKey: "backGround") != nil{
@@ -171,9 +171,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // セルを取得
         let cell = tableView.dequeueReusableCell(withIdentifier: "diaryCell") as! CustomTableViewCell
         
+        
+        if(!(userdefault.value(forKey: "commentFlg") as! Bool == true && coment[diaryNum - indexPath.section-1] == true)){
         if(sortFlg){
             cell.setCell(date: diaryDate[diaryNum - indexPath.section-1], text: diaryText[diaryNum - indexPath.section-1])
-            if commentFlg[diaryNum-indexPath.section-1]{
+            if coment[diaryNum-indexPath.section-1]{
                 cell.layer.borderColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1).cgColor
                 cell.layer.borderWidth = 3.0
             }else{
@@ -182,12 +184,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }else{
             cell.setCell(date: diaryDate[indexPath.section], text: diaryText[indexPath.section])
-            if commentFlg[indexPath.section]{
+            if coment[indexPath.section]{
                 cell.layer.borderColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1).cgColor
                 cell.layer.borderWidth = 3.0
             }else{
                 cell.layer.borderWidth = 0
             }
+        }
         }
         cell.layer.cornerRadius = 3
         
@@ -196,6 +199,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //sectionの数
     func numberOfSections(in tableView: UITableView) -> Int {
+        var cnt = 0
+        if userdefault.value(forKey: "commentFlg") as! Bool == true {
+            for i in coment{
+                if (i == true){
+                    cnt += 1
+                }
+            }
+            print("aaaaaaa" , (diaryNum-cnt))
+            return diaryNum-cnt
+        }
         return diaryNum
     }
     
@@ -249,12 +262,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 date = diaryDate[diaryNum - indexPath.section-1]
                 diaryText.remove(at: diaryNum - indexPath.section-1)
                 diaryDate.remove(at: diaryNum - indexPath.section-1)
-                commentFlg.remove(at: diaryNum - indexPath.section-1)
+                coment.remove(at: diaryNum - indexPath.section-1)
             }else{
                 date = diaryDate[indexPath.section]
                 diaryText.remove(at:indexPath.section)
                 diaryDate.remove(at:indexPath.section)
-                commentFlg.remove(at:indexPath.section)
+                coment.remove(at:indexPath.section)
             }
             
             diaryNum -= 1
@@ -262,7 +275,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             userdefault.set(diaryNum, forKey: "diaryNum")
             userdefault.set(diaryDate, forKey: "diaryDate")
             userdefault.set(diaryText, forKey: "diaryText")
-            userdefault.set(commentFlg, forKey: "comments")
+            userdefault.set(coment, forKey: "comments")
             
             table.reloadData()
             
@@ -328,7 +341,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let path: [IndexPath]? = table.indexPathsForVisibleRows
         let num = path?.count
         if(num != nil){
-            let date = diaryDate[diaryNum - (path?[num!-1].section)!]
+            let date:Date
+            if(sortFlg){
+                date = diaryDate[diaryNum - (path?[0].section)!-1]
+            }else{
+                date = diaryDate[(path?[0].section)!]
+            }
+            
             let cal = Calendar.current//carender
             let dataComps = cal.dateComponents([.year, .month, .day, .hour, .minute], from: date)
             
