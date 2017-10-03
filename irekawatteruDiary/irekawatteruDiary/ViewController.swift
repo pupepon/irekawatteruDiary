@@ -8,6 +8,7 @@
 
 import UIKit
 import NCMB
+import Firebase
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -22,7 +23,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var myButton: UIButton!
     var anotherDiaryNum = -1
     var sortFlg:Bool = false
+    
+    let Ad_ID = "ca-app-pub-8456552607242600/1848764061"
+    
+    let AdMobTest:Bool = false
 
+    @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var navigationBar: UINavigationItem!
@@ -39,6 +45,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         table.delegate = self
         table.dataSource = self
         table.separatorStyle = .none
+        
+        
+        var admobView = GADBannerView()
+        
+        admobView = GADBannerView(adSize:kGADAdSizeBanner)
+        admobView.frame.origin = CGPoint(x:0, y:self.view.frame.height-admobView.frame.height-toolBar.frame.height)
+        admobView.frame.size = CGSize(width:self.view.frame.width, height:admobView.frame.height)
+        
+        admobView.adUnitID = Ad_ID
+        admobView.rootViewController = self
+        admobView.load(GADRequest())
+        
+        self.view.addSubview(admobView)
+        
     }
     
     //このViewが表示されるたび呼び出されるメソッド
@@ -100,6 +120,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             navigationItem.leftBarButtonItem?.tintColor = UIColor.white
             navigationItem.leftBarButtonItem?.title = "設定"
         }
+        
+        if(userdefault.value(forKey: "commentFlg") as! Bool == false){
+            var tmpText:[String] = []
+            var tmpDate:[Date] = []
+            var cnt=0
+            for _ in diaryText{
+                if(!coment[cnt]){
+                    tmpText.append(diaryText[cnt])
+                    tmpDate.append(diaryDate[cnt])
+                }
+                cnt = cnt+1
+            }
+            diaryText = tmpText
+            diaryDate = tmpDate
+            diaryNum = tmpText.count
+            print(diaryNum,diaryText,diaryDate)
+        }
+        
         table.reloadData()
         indicator.stopAnimating()
     }
@@ -171,11 +209,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // セルを取得
         let cell = tableView.dequeueReusableCell(withIdentifier: "diaryCell") as! CustomTableViewCell
         
-        
-        if(!(userdefault.value(forKey: "commentFlg") as! Bool == true && coment[diaryNum - indexPath.section-1] == true)){
         if(sortFlg){
             cell.setCell(date: diaryDate[diaryNum - indexPath.section-1], text: diaryText[diaryNum - indexPath.section-1])
-            if coment[diaryNum-indexPath.section-1]{
+            if coment[diaryNum-indexPath.section-1] && userdefault.value(forKey: "commentFlg") as! Bool{
                 cell.layer.borderColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1).cgColor
                 cell.layer.borderWidth = 3.0
             }else{
@@ -184,13 +220,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }else{
             cell.setCell(date: diaryDate[indexPath.section], text: diaryText[indexPath.section])
-            if coment[indexPath.section]{
+            if coment[indexPath.section] && userdefault.value(forKey: "commentFlg") as! Bool{
                 cell.layer.borderColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1).cgColor
                 cell.layer.borderWidth = 3.0
             }else{
                 cell.layer.borderWidth = 0
             }
-        }
         }
         cell.layer.cornerRadius = 3
         
@@ -199,16 +234,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //sectionの数
     func numberOfSections(in tableView: UITableView) -> Int {
-        var cnt = 0
-        if userdefault.value(forKey: "commentFlg") as! Bool == true {
-            for i in coment{
-                if (i == true){
-                    cnt += 1
-                }
-            }
-            print("aaaaaaa" , (diaryNum-cnt))
-            return diaryNum-cnt
-        }
         return diaryNum
     }
     

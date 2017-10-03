@@ -8,6 +8,7 @@
 
 import UIKit
 import NCMB
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        
+        // Use Firebase library to configure APIs
+        FIRApp.configure()
+        
+        // Initialize Google Mobile Ads SDK, application IDを設定
+        GADMobileAds.configure(withApplicationID: "1:1021175359531:ios:0b179a5c5d9fa577")
         
         //NCMB初期設定
         NCMB.setApplicationKey(applicationkey, clientKey: clientkey)

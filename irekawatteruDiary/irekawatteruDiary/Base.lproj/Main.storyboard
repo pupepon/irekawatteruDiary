@@ -47,7 +47,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="diaryTable" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xB4-Wb-13V">
-                                <rect key="frame" x="16" y="99" width="382" height="593"/>
+                                <rect key="frame" x="16" y="99" width="382" height="543"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" alpha="0.59999999999999998" contentMode="scaleToFill" restorationIdentifier="diaryCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="diaryCell" rowHeight="90" id="B7A-RG-0Nz" customClass="CustomTableViewCell" customModule="irekawatteruDiary" customModuleProvider="target">
@@ -141,7 +141,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="eNN-8f-12r"/>
                                     <barButtonItem image="home.png" style="plain" id="5pz-Fh-Zfg">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1HM-dy-wB5">
-                                            <rect key="frame" x="106" y="7" width="30" height="30"/>
+                                            <rect key="frame" x="105" y="7" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="home.png"/>
                                             <connections>
@@ -149,10 +149,10 @@
                                             </connections>
                                         </button>
                                     </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="xkm-hz-lnO"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="HZn-4H-S8p"/>
                                     <barButtonItem style="plain" id="FwK-W5-ROc">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9yN-vz-qrb">
-                                            <rect key="frame" x="188" y="7" width="34" height="30"/>
+                                            <rect key="frame" x="190" y="7" width="34" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="sort_img.png"/>
                                             <connections>
@@ -163,7 +163,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Ewv-jH-r87"/>
                                     <barButtonItem style="plain" id="MXR-eQ-FuF">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zzp-jB-bHi">
-                                            <rect key="frame" x="278" y="7" width="30" height="30"/>
+                                            <rect key="frame" x="279" y="7" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="fav.png"/>
                                             <connections>
@@ -204,7 +204,7 @@
                             <constraint firstItem="xB4-Wb-13V" firstAttribute="top" secondItem="X1V-Qt-ZbQ" secondAttribute="bottom" id="bfl-U4-HU5"/>
                             <constraint firstAttribute="trailing" secondItem="o5F-6X-1Mh" secondAttribute="trailing" id="gGv-Of-oFK"/>
                             <constraint firstItem="X1V-Qt-ZbQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="gVQ-ls-97E"/>
-                            <constraint firstItem="o5F-6X-1Mh" firstAttribute="top" secondItem="xB4-Wb-13V" secondAttribute="bottom" id="gpn-0k-ENm"/>
+                            <constraint firstItem="o5F-6X-1Mh" firstAttribute="top" secondItem="xB4-Wb-13V" secondAttribute="bottom" constant="50" id="gpn-0k-ENm"/>
                             <constraint firstItem="hSH-1I-NPL" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="hWi-dJ-jMW"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="o5F-6X-1Mh" secondAttribute="bottom" id="lWm-XX-AQr"/>
                             <constraint firstItem="xB4-Wb-13V" firstAttribute="centerX" secondItem="hSH-1I-NPL" secondAttribute="centerX" id="lvt-8K-1uq"/>
@@ -226,6 +226,7 @@
                         <outlet property="indicator" destination="7cD-PY-Kvx" id="VUt-KU-ohQ"/>
                         <outlet property="navigationBar" destination="Xmd-mU-h3h" id="PHN-NB-34V"/>
                         <outlet property="table" destination="xB4-Wb-13V" id="LdR-i9-sIv"/>
+                        <outlet property="toolBar" destination="o5F-6X-1Mh" id="lDF-bE-Ja1"/>
                         <outlet property="yearMonthLabel" destination="7C4-gd-d85" id="Ubl-Dz-csQ"/>
                         <outlet property="yearMonthView" destination="X1V-Qt-ZbQ" id="lD1-wp-ggG"/>
                         <segue destination="DO9-NL-8xw" kind="push" identifier="editDiary" id="wgd-md-ksa"/>
@@ -344,6 +345,7 @@
                     <connections>
                         <outlet property="backView" destination="Hq1-9e-ZgG" id="bVE-JI-xJc"/>
                         <outlet property="colorCollection" destination="PWa-ru-WuM" id="fNP-o7-EL4"/>
+                        <outlet property="commentSwitch" destination="TmK-Uv-zWb" id="sSb-72-P4i"/>
                         <outlet property="diaryNameTextfield" destination="sZA-nq-SJ7" id="fQO-cJ-WPH"/>
                     </connections>
                 </viewController>

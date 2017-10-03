@@ -18,6 +18,9 @@ class SettingViewController: UIViewController,UICollectionViewDataSource, UIColl
     var colorRGB:[CGFloat] = []
     
     @IBOutlet weak var colorCollection: UICollectionView!
+    
+    @IBOutlet weak var commentSwitch: UISwitch!
+    
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -26,6 +29,8 @@ class SettingViewController: UIViewController,UICollectionViewDataSource, UIColl
         diaryNameTextfield.text = userdefault.value(forKey: "diaryName") as? String
         let c = userdefault.value(forKey: "backGround") as! [CGFloat]
         let selectedColor: UIColor = UIColor(red: c[0], green: c[1], blue: c[2], alpha: 1)
+        
+        commentSwitch.isOn = userdefault.value(forKey: "commentFlg") as! Bool
         
         for i in 0..<colors.count{
             if(colors[i] == selectedColor){
@@ -42,11 +47,13 @@ class SettingViewController: UIViewController,UICollectionViewDataSource, UIColl
         if(diaryNameTextfield.text != nil){
             saveObject(className: "member", id: id!, key: "diaryName", value: diaryNameTextfield.text!)
         }
+        userdefault.set(diaryNameTextfield.text, forKey: "diaryName")
         
         //背景色の保存
         if(colorRGB != []){
             saveObject(className: "member", id: id!, key: "backGround", value: colorRGB)
         }
+        userdefault.set(colorRGB, forKey: "backGround")
     }
     
     @IBAction func comentFlgSwitch(_ sender: UISwitch) {
