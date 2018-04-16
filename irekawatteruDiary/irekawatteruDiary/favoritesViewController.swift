@@ -17,6 +17,8 @@ class favoritesViewController: UIViewController , UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        navigationItem.leftBarButtonItem?.title = "削除"
         // Do any additional setup after loading the view.
     }
 

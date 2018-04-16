@@ -32,16 +32,30 @@ class CustomTableViewCell: UITableViewCell {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss" //表示形式を設定
         let dateString:String
-        let timeString:String
+        var timeString:String = ""
         let cal = Calendar.current//carender
         var dataComps = cal.dateComponents([.year, .month, .day, .hour, .minute], from: date)
         //dateString = "\(dataComps.month!)月\(dataComps.day!)日 \(dataComps.hour!):\(dataComps.minute!)"
+        
+        let hour = dataComps.hour!
+        let minute = dataComps.minute!
+        
+        if(hour < 10){
+            timeString.append("0" + hour.description + " : ")
+        }else{
+            timeString.append(hour.description + " : ")
+        }
+        
+        if(minute < 10){
+            timeString.append("0" + minute.description)
+        }else{
+            timeString.append(minute.description)
+        }
+        
         dateString = "\(dataComps.day!)"
-        timeString = "\(dataComps.hour!) : \(dataComps.minute!)"
         diaryText.numberOfLines = 0
         diaryText.lineBreakMode = NSLineBreakMode.byWordWrapping
         let c:[CGFloat]
-        let flg = userdefault.value(forKey: "irekawatteruFlg") as! Bool
         c = userdefault.value(forKey: "backGround") as! [CGFloat]
         let color: UIColor = UIColor(red: c[0], green: c[1], blue: c[2], alpha: 1)
         dateLabel.textColor = color

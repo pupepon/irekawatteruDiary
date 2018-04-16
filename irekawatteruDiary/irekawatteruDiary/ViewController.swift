@@ -46,7 +46,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         table.dataSource = self
         table.separatorStyle = .none
         
-        
         var admobView = GADBannerView()
         
         admobView = GADBannerView(adSize:kGADAdSizeBanner)
@@ -58,8 +57,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         admobView.load(GADRequest())
         
         self.view.addSubview(admobView)
-        
     }
+    
     
     //このViewが表示されるたび呼び出されるメソッド
     override func viewWillAppear(_ animated: Bool) {
@@ -118,7 +117,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }else{
             navigationItem.leftBarButtonItem = editButtonItem
             navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-            navigationItem.leftBarButtonItem?.title = "設定"
+            navigationItem.leftBarButtonItem?.title = "削除"
         }
         
         if(userdefault.value(forKey: "commentFlg") as! Bool == false){
@@ -164,9 +163,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //入れ替わる
     @IBAction func irekawatteru(_ sender: Any) {
         
-        indicator.startAnimating()
+        self.indicator.startAnimating()
         irekawatteruFlg = true
-        let objs = getDiaryData("pQ4Dsf7DVU6f1ZtV", className: "general", keyName: "objectId")
+        let objs = getDiaryData("USD2Do1XAuUY5G5E", className: "general", keyName: "objectId")
         if(objs.count == 0){
             print("error")
             return
@@ -239,14 +238,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let frame:CGRect = CGRect(x: 100, y: 100, width: 100, height: 1000)
-        let header:UIView = UIView(frame: frame)
-        header.backgroundColor = UIColor.clear
-        return header
+        let myView: UIView = UIView()
+        myView.backgroundColor = UIColor.clear
+        myView.frame = CGRect(x:0,y:0,width:self.view.frame.width,height:10)
+        return myView
+        
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return " "
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -268,7 +272,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func tableView(tableView: UITableView,canEditRowAtIndexPath indexPath: IndexPath) -> Bool
+    func tableView(_ tableView: UITableView,canMoveRowAt indexPath: IndexPath) -> Bool
     {
         if(irekawatteruFlg){
             return true
@@ -333,17 +337,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                 print("deleteFailed")
                             }else{
                                 // 削除に成功した場合の処理
+                                var num = parent.object(forKey: "diaryNum") as! Int
+                                num -= 1
+                                parent.setObject(num, forKey: "diaryNum")
+                                parent.save(nil)
                                 print("deleteSucceed")
+                                print(d,date)
                             }
                         })
                     }
                 }
             }
-            
-            var num = parent.object(forKey: "diaryNum") as! Int
-            num -= 1
-            parent.setObject(num, forKey: "diaryNum")
-            parent.save(nil)
         }
     }
     
@@ -419,7 +423,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var results:[AnyObject] = []
         var id:[String] = []
         
-        //indicator.startAnimating()
+        indicator.startAnimating()
         
         //指定したmemberを取ってくる
         if(flg){
@@ -445,7 +449,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 results = try diaryQuery!.findObjects() as [AnyObject]
             } catch  let error1 as NSError  {
                 print("\(error1)")
-                errorAlert(text: "データの取得に失敗しました.通信環境を確認してリトライしてください。")
+                errorAlert(text: "データの取得に失敗しました.")
                 return
             }
             
@@ -580,3 +584,4 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         viewWillAppear(true)
     }
 }
+

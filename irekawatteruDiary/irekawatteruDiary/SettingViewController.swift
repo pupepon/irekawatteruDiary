@@ -16,7 +16,7 @@ class SettingViewController: UIViewController,UICollectionViewDataSource, UIColl
     let colors = [#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1),#colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1),#colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1),#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1),#colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1),#colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)]
     var selectedPath = 0
     var colorRGB:[CGFloat] = []
-    
+    var commentFlg:Bool = false
     @IBOutlet weak var colorCollection: UICollectionView!
     
     @IBOutlet weak var commentSwitch: UISwitch!
@@ -26,17 +26,30 @@ class SettingViewController: UIViewController,UICollectionViewDataSource, UIColl
         super.viewDidLoad()
         print("LunchedSettingView!!!")
         
-        diaryNameTextfield.text = userdefault.value(forKey: "diaryName") as? String
+        
+        //入れ替わってたら名前と背景色を変更不可に。
+        var flg = true
+        flg = userdefault.value(forKey: "irekawatteruFlg") as! Bool
+        diaryNameTextfield.isEnabled = !flg
+        colorCollection.isUserInteractionEnabled = !flg
+        
+        //色の初期設定
         let c = userdefault.value(forKey: "backGround") as! [CGFloat]
         let selectedColor: UIColor = UIColor(red: c[0], green: c[1], blue: c[2], alpha: 1)
-        
-        commentSwitch.isOn = userdefault.value(forKey: "commentFlg") as! Bool
-        
         for i in 0..<colors.count{
             if(colors[i] == selectedColor){
                 selectedPath = i
             }
         }
+        
+        //名前の設定
+        diaryNameTextfield.text = userdefault.value(forKey: "diaryName") as? String
+        commentFlg = userdefault.value(forKey: "commentFlg") as! Bool
+        
+        //スイッチの設定
+        commentSwitch.isOn = commentFlg
+        
+        
         colorCollection.allowsSelection = true
         // Do any additional setup after loading the view.
     }
@@ -52,15 +65,16 @@ class SettingViewController: UIViewController,UICollectionViewDataSource, UIColl
         //背景色の保存
         if(colorRGB != []){
             saveObject(className: "member", id: id!, key: "backGround", value: colorRGB)
+            userdefault.set(colorRGB, forKey: "backGround")
         }
-        userdefault.set(colorRGB, forKey: "backGround")
+        
     }
     
     @IBAction func comentFlgSwitch(_ sender: UISwitch) {
         if(sender.isOn){
-            userdefault.set(true,forKey:"commentFlg")
+            commentFlg = true
         }else{
-            userdefault.set(false,forKey:"commentFlg")
+            commentFlg = false
         }
     }
     
@@ -109,6 +123,9 @@ class SettingViewController: UIViewController,UICollectionViewDataSource, UIColl
     
     //NCMBdataの保存
     func saveObject(className:String, id:String, key:String, value:Any){
+        
+        userdefault.set(commentFlg,forKey:"commentFlg")
+        
         let obj = NCMBObject(className: className)
         // objectIdプロパティを設定
         obj?.objectId = id

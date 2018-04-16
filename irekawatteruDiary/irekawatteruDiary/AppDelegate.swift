@@ -15,8 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let userdefault = UserDefaults.standard
-    let applicationkey = "e417a1144fbee84bb63f1b1180899722fc59a31245a9d24f0792e1d897a44de0"
-    let clientkey = "7efccf9456ebd4937c1d9d300b527546d3fb63be706da0b10ab65fe7fb8ccb1c"
+        let applicationkey = "ce9128209837260538a4f3922683d305b263bfa9bcc73ceb32ff7fbf17a2ccc5"
+        let clientkey = "0e4575a1ae6c7f07b5b0b4e406eab777fc4414b590d60de8788d5d889617b870"
+//    let applicationkey = "e417a1144fbee84bb63f1b1180899722fc59a31245a9d24f0792e1d897a44de0"
+//    let clientkey = "7efccf9456ebd4937c1d9d300b527546d3fb63be706da0b10ab65fe7fb8ccb1c"
 
     func applicationWillResignActive(_ application: UIApplication) {
         
@@ -50,10 +52,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             userdefault.set([Bool](),forKey:"comments")
             userdefault.set([0.1411,0.3960,0.5647059083], forKey: "backGround")//RGB#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
             userdefault.set("myDiary", forKey: "diaryName")
+            userdefault.set(true, forKey: "commentFlg")
             
             // データストアに日記を追加
             let generalData = NCMBObject(className: "general")
-            generalData?.objectId = "pQ4Dsf7DVU6f1ZtV"
+            generalData?.objectId = "USD2Do1XAuUY5G5E"
             generalData?.fetchInBackground({ (error) in
                 if error != nil {
                     // 取得に失敗した場合の処理
