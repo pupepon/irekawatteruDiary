@@ -23,7 +23,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var myButton: UIButton!
     var anotherDiaryNum = -1
     var sortFlg:Bool = false
-    
+    var favoritesNums = [Int]()
     let Ad_ID = "ca-app-pub-8456552607242600/1848764061"
     
     let AdMobTest:Bool = false
@@ -36,6 +36,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var yearMonthView: UIView!
     @IBOutlet weak var yearMonthLabel: UILabel!
     @IBOutlet weak var changeButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("LunchedMainView!!!")
@@ -45,6 +46,47 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         table.delegate = self
         table.dataSource = self
         table.separatorStyle = .none
+        
+        //toolbar
+        var toolBarButtons = [UIBarButtonItem()]
+        let homeButton = UIButton()
+        homeButton.setImage(#imageLiteral(resourceName: "homeIcon"), for: UIControlState())
+        homeButton.addTarget(self, action: #selector(self.backToHome(_:)), for: .touchUpInside)
+        let settingButton = UIButton()
+        settingButton.setImage(#imageLiteral(resourceName: "settingIcon"), for: UIControlState())
+        settingButton.addTarget(self, action: #selector(self.toSettingView(_:)), for: .touchUpInside)
+        let sortButton = UIButton()
+        sortButton.setImage(#imageLiteral(resourceName: "sortIcon"), for: UIControlState())
+        sortButton.addTarget(self, action: #selector(self.sortDiary(_:)), for: .touchUpInside)
+        let favButton = UIButton()
+        favButton.setImage(#imageLiteral(resourceName: "favIcon"), for: UIControlState())
+        favButton.addTarget(self, action: #selector(self.toFavView(_:)), for: .touchUpInside)
+        let changeButton = UIButton()
+        changeButton.setImage(#imageLiteral(resourceName: "irekawaruIcon"), for: UIControlState())
+        changeButton.addTarget(self, action: #selector(self.irekawatteru(_:)), for: .touchUpInside)
+        
+        let flexibleItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+
+        toolBar.items = []
+        
+        toolBar.items!.append(UIBarButtonItem(customView:homeButton))
+        toolBar.items!.append(flexibleItem)
+        toolBar.items!.append(UIBarButtonItem(customView:settingButton))
+        toolBar.items!.append(flexibleItem)
+        toolBar.items!.append(UIBarButtonItem(customView:sortButton))
+        toolBar.items!.append(flexibleItem)
+        toolBar.items!.append(UIBarButtonItem(customView:favButton))
+        toolBar.items!.append(flexibleItem)
+        toolBar.items!.append(UIBarButtonItem(customView:changeButton))
+        
+        for i in 0 ..< toolBar.items!.count{
+            if(i%2 == 0){
+                toolBar.items![i].customView?.widthAnchor.constraint(equalToConstant: 25.0).isActive = true
+                toolBar.items![i].customView?.heightAnchor.constraint(equalToConstant: 25.0).isActive = true
+            }
+            
+        }
+        
         
         var admobView = GADBannerView()
         
@@ -90,6 +132,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }else{
             print("coment is nil")
         }
+        
+        favoritesNums = userdefault.value(forKey: "favorites") as! [Int]
         
         if userdefault.value(forKey: "backGround") != nil{
             let c = userdefault.value(forKey: "backGround") as! [CGFloat]
@@ -197,6 +241,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func sortDiary(_ sender: Any) {
         sortFlg = !sortFlg
         table.reloadData()
+    }
+    
+    @IBAction func toSettingView(_ sender: Any){
+        self.performSegue(withIdentifier: "toSettingView", sender: nil)
+    }
+    
+    @IBAction func toFavView(_ sender: Any){
+        self.performSegue(withIdentifier: "toFavView", sender: nil)
     }
     
     
@@ -396,11 +448,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let editViewController = segue.destination as! EditViewController
             editViewController.tagNum = -1
         }
+       
+        //星のアイコン
+        if segue.identifier == "favView" {
+            let favoriteController = segue.destination as! favoritesViewController
+            var names = [String]()
+            for i in favoritesNums{
+                var obj = getDiaryData(i, className: "member", keyName: "number")
+                for n in obj{
+                    print(n)
+                    names.append(n.object(forKey: "diaryName") as! String)
+                }
+                //names.append(obj[0].object(forKey: "diaryName") as! String)
+            }
+            
+            favoriteController.names = names
+        }
         
         //セルをタップした
         if segue.identifier == "editDiary" && !irekawatteruFlg {
             let editViewController = segue.destination as! EditViewController
             let sectionNum = sender as! Int
+            
             editViewController.tagNum = sectionNum
             editViewController.senderText = diaryText[sectionNum]
         }
@@ -553,15 +622,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // アラートにボタンをつける
         alert.addAction(UIAlertAction(title: "はい", style: .default){
             action in
-            var favoritesDictionaly = [String:Int]()
+            
             if self.userdefault.value(forKey: "favorites") != nil{
-                favoritesDictionaly = self.userdefault.value(forKey: "favorites") as! [String : Int]
-                favoritesDictionaly[self.navigationBar.title!] = self.anotherDiaryNum
+                self.favoritesNums = self.userdefault.value(forKey: "favorites") as! [Int]
+                self.favoritesNums.append(self.anotherDiaryNum)
             }else{
-                favoritesDictionaly[self.navigationBar.title!] = self.anotherDiaryNum
+                self.favoritesNums.append(self.anotherDiaryNum)
             }
-            print("addfavorite",favoritesDictionaly)
-            self.userdefault.set(favoritesDictionaly, forKey: "favorites")
+            print("addfavorite",self.favoritesNums)
+            self.userdefault.set(self.favoritesNums, forKey: "favorites")
         })
         alert.addAction(UIAlertAction(title: "いいえ", style: .default))
         // アラート表示

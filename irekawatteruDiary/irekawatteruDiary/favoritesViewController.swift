@@ -11,14 +11,15 @@ import UIKit
 class favoritesViewController: UIViewController , UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var table: UITableView!
-    var favorites = UserDefaults.standard.value(forKey: "favorites") as! [String:Int]
-    var nums = [Int]()
+    var favorites = UserDefaults.standard.value(forKey: "favorites") as! [Int]
     var names = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = editButtonItem
-        navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-        navigationItem.leftBarButtonItem?.title = "削除"
+        navigationItem.rightBarButtonItem = editButtonItem
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        navigationItem.rightBarButtonItem?.title = "削除"
+        favorites = UserDefaults.standard.value(forKey: "favorites") as! [Int]
+        print(names)
         // Do any additional setup after loading the view.
     }
 
@@ -31,11 +32,6 @@ class favoritesViewController: UIViewController , UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // セルを取得
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        for (key,val) in favorites {
-            names.append(key)
-            nums.append(val)
-            print(key)
-        }
         cell.textLabel!.text = names[indexPath.row]
         return cell
     }
@@ -47,7 +43,7 @@ class favoritesViewController: UIViewController , UITableViewDataSource, UITable
     
     // セルが選択された時に呼ばれるデリゲートメソッド
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "back", sender: nums[indexPath.row])
+        self.performSegue(withIdentifier: "back", sender: favorites[indexPath.row])
     }
     
     //編集
@@ -65,8 +61,8 @@ class favoritesViewController: UIViewController , UITableViewDataSource, UITable
             print("削除")
             
             // 指定されたセルのオブジェクトをmyItemsから削除する.
-            favorites.removeValue(forKey: names[indexPath.row])
-            
+            favorites.remove(at: indexPath.row)
+            UserDefaults.standard.set(favorites, forKey: "favorites")
             // TableViewを再読み込み.
             table.reloadData()
         }
@@ -75,7 +71,6 @@ class favoritesViewController: UIViewController , UITableViewDataSource, UITable
     //画面遷移の時に呼ばれるメソッド
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        //右上のaddButton
         if segue.identifier == "back" {
             let viewController = segue.destination as! ViewController
             viewController.anotherDiaryNum = sender as! Int

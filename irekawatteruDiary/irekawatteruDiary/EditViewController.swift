@@ -56,6 +56,8 @@ class EditViewController: UIViewController {
         }else{
             print("diaryId is nil")
         }
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        navigationItem.leftBarButtonItem?.title = "戻る"
 
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -160,7 +162,7 @@ class EditViewController: UIViewController {
         }else{
             //更新
             diaryText[tagNum] = editText.text
-            diaryDate[tagNum] = date
+            //diaryDate[tagNum] = date
         }
         userDefault.set(diaryText, forKey: "diaryText")
         userDefault.set(diaryText.count, forKey:"diaryNum")
